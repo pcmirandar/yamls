@@ -1,0 +1,8 @@
+---
+- name: Crear un archivo con "Hola mundo" en una máquina Windows
+  hosts: windows_prueba
+  tasks:
+    - name: Crear el archivo hola.txt en C:\ con el contenido "Hola mundo"
+      ansible.builtin.win_file:
+        path: C:\hola.txt
+        state: touch
