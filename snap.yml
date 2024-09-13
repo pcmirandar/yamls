@@ -1,6 +1,6 @@
 ---
 - name: vm snapshot demo
-  hosts: 127.0.0.1
+  hosts: vcenterqa
   become: false
   gather_facts: false
   tasks:
