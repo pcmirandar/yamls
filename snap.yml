@@ -1,0 +1,17 @@
+---
+- name: vm snapshot demo
+  hosts: vcenterqa
+  become: false
+  gather_facts: false
+  tasks:
+    - name: create snap
+      vmware_guest_snapshot:
+        hostname: "hnqabasa.adbancat.hn"
+        username: "administrator@vsphere.local"
+        password: Dellsvcs1.
+        datacenter: HN-BASA-QA
+        validate_certs: no
+        name: "HNQAPRBHARD"
+        folder: "/Servidores QA/Pruebas Rol/"
+        snapshot_name: "ANSIBLE_TEST"
+        state: present
