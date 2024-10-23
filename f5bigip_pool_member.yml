@@ -18,10 +18,21 @@
       validate_certs: false
       
   tasks:
+    - name: salida
+      debug:
+        msg:
+          - "pool name: {{ pool_name }}"
+          - "usuario: {{ f5_user }}"
+          - "password: {{ f5_pass }}"
+          
     - name: Sacar servidor del pool de F5
       f5networks.f5_modules.bigip_pool_member:
         pool: "{{ pool_name }}"
         host: "{{ inventory_hostname }}"
+        provider:
+          server: "{{ f5_host }}"
+          user: "{{ f5_user }}"
+          password: "{{ f5_pass }}"
         port: 80  # Puerto del servicio IIS
         state: absent
       delegate_to: localhost
@@ -46,5 +57,9 @@
         pool: "{{ pool_name }}"
         host: "{{ inventory_hostname }}"
         port: 80  # Puerto del servicio IIS
+        provider:
+          server: "{{ f5_host }}"
+          user: "{{ f5_user }}"
+          password: "{{ f5_pass }}"
         state: present
       delegate_to: localhost
