@@ -1,0 +1,48 @@
+---
+- name: Reiniciar IIS y gestionar F5 Pool
+  hosts: webservers_rebooteo
+  gather_facts: true
+  vars:  
+    # pool_name
+    # f5_host
+    # f5_user
+    # f5_pass
+  # Use the same connection info for ALL calls to bigip_pool_member
+  module_defaults:
+    f5networks.f5_modules.bigip_pool_member:
+      server: "{{ f5_host }}"
+      user: "{{ f5_user }}"
+      password: "{{ f5_pass }}"
+      validate_certs: false
+      
+  tasks:
+    - name: Sacar servidor del pool de F5
+      f5networks.f5_modules.bigip_pool_member:
+        pool: "{{ pool_name }}"
+        host: "{{ inventory_hostname }}"
+        port: 80  # Puerto del servicio IIS
+        state: absent
+      delegate_to: localhost
+
+    - name: Reiniciar el servicio de IIS en el servidor
+      ansible.windows.win_service:
+        name: w3svc  # Servicio de IIS
+        state: restarted
+
+    - name: Esperar al puerto 80 del server Windows, maximo 1 minuto
+      ansible.builtin.wait_for:
+        port: 80
+        timeout: 60
+        
+    - name: Hacer una llamada al / del IIS
+      ansible.builtin.uri:
+        url: "http://{{ inventory_hostname }}"
+      delegate_to: localhost
+
+    - name: Ingresar servidor de nuevo al pool de F5
+      f5networks.f5_modules.bigip_pool_member:
+        pool: "{{ pool_name }}"
+        host: "{{ inventory_hostname }}"
+        port: 80  # Puerto del servicio IIS
+        state: present
+      delegate_to: localhost
