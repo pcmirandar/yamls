@@ -10,12 +10,12 @@
   # Use the same connection info for ALL calls to bigip_pool_member
   vars_files:
     - f5bigip_pool_member_extra_vars
-  module_defaults:
-    f5networks.f5_modules.bigip_pool_member:
-      server: "{{ f5_host }}"
-      user: "{{ f5_user }}"
-      password: "{{ f5_pass }}"
-      validate_certs: false
+  #module_defaults:
+  #  f5networks.f5_modules.bigip_pool_member:
+  #    server: "{{ f5_host }}"
+  #    user: "{{ f5_user }}"
+  #    password: "{{ f5_pass }}"
+  #    validate_certs: false
       
   tasks:
     - name: salida
