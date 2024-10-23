@@ -33,6 +33,7 @@
           server: "{{ f5_host }}"
           user: "{{ f5_user }}"
           password: "{{ f5_pass }}"
+          validate_certs: false
         port: 80  # Puerto del servicio IIS
         state: absent
       delegate_to: localhost
