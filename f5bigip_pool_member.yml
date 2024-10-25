@@ -48,11 +48,15 @@
     - name: Esperar al puerto 80 del server Windows, maximo 1 minuto
       ansible.builtin.wait_for:
         port: 8080
+        host: "{{ host_ip }}"
+        connect_timeout: 3
+        delay: 3
         timeout: 60
+      delegate_to: localhost
         
     - name: Hacer una llamada al / del IIS
       ansible.builtin.uri:
-        url: "http://{{ host_ip }}"
+        url: "http://{{ host_ip }}:8080"
       delegate_to: localhost
 
   #  - name: Ingresar servidor de nuevo al pool de F5
