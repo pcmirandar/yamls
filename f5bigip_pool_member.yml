@@ -25,7 +25,7 @@
           - "usuario: {{ f5_user }}"
           - "password: {{ f5_pass }}"
           - "inventory hostname http://{{ inventory_hostname }}"
-          - "ip: {{ ansible_default_ipv4.address }}"
+          - "ip: {{ host_ip }}"
           
   #  - name: Sacar servidor del pool de F5
   #    f5networks.f5_modules.bigip_pool_member:
@@ -52,7 +52,7 @@
         
     - name: Hacer una llamada al / del IIS
       ansible.builtin.uri:
-        url: "http://{{ inventory_hostname }}"
+        url: "http://{{ host_ip }}"
       delegate_to: localhost
 
   #  - name: Ingresar servidor de nuevo al pool de F5
