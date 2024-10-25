@@ -25,18 +25,18 @@
           - "usuario: {{ f5_user }}"
           - "password: {{ f5_pass }}"
           
-    - name: Sacar servidor del pool de F5
-      f5networks.f5_modules.bigip_pool_member:
-        pool: "{{ pool_name }}"
-        host: "{{ inventory_hostname }}"
-        provider:
-          server: "{{ f5_host }}"
-          user: "{{ f5_user }}"
-          password: "{{ f5_pass }}"
-          validate_certs: false
-        port: 80  # Puerto del servicio IIS
-        state: absent
-      delegate_to: localhost
+  #  - name: Sacar servidor del pool de F5
+  #    f5networks.f5_modules.bigip_pool_member:
+  #      pool: "{{ pool_name }}"
+  #      host: "{{ inventory_hostname }}"
+  #      provider:
+  #        server: "{{ f5_host }}"
+  #        user: "{{ f5_user }}"
+  #        password: "{{ f5_pass }}"
+  #        validate_certs: false
+  #      port: 80  # Puerto del servicio IIS
+  #      state: absent
+  #    delegate_to: localhost
 
     - name: Reiniciar el servicio de IIS en el servidor
       ansible.windows.win_service:
@@ -53,15 +53,15 @@
         url: "http://{{ inventory_hostname }}"
       delegate_to: localhost
 
-    - name: Ingresar servidor de nuevo al pool de F5
-      f5networks.f5_modules.bigip_pool_member:
-        pool: "{{ pool_name }}"
-        host: "{{ inventory_hostname }}"
-        port: 80  # Puerto del servicio IIS
-        provider:
-          server: "{{ f5_host }}"
-          user: "{{ f5_user }}"
-          password: "{{ f5_pass }}"
-          validate_certs: false
-        state: present
-      delegate_to: localhost
+  #  - name: Ingresar servidor de nuevo al pool de F5
+  #    f5networks.f5_modules.bigip_pool_member:
+  #      pool: "{{ pool_name }}"
+  #      host: "{{ inventory_hostname }}"
+  #      port: 80  # Puerto del servicio IIS
+  #      provider:
+  #        server: "{{ f5_host }}"
+  #        user: "{{ f5_user }}"
+  #        password: "{{ f5_pass }}"
+  #        validate_certs: false
+  #      state: present
+  #    delegate_to: localhost
