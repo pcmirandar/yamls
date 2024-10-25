@@ -24,6 +24,7 @@
           - "pool name: {{ pool_name }}"
           - "usuario: {{ f5_user }}"
           - "password: {{ f5_pass }}"
+          - "inventory hostname {{ inventory_hostname }}"
           
   #  - name: Sacar servidor del pool de F5
   #    f5networks.f5_modules.bigip_pool_member:
