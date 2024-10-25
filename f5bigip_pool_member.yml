@@ -46,7 +46,7 @@
 
     - name: Esperar al puerto 80 del server Windows, maximo 1 minuto
       ansible.builtin.wait_for:
-        port: 80
+        port: 8080
         timeout: 60
         
     - name: Hacer una llamada al / del IIS
